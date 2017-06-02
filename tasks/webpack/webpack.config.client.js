@@ -1,6 +1,8 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import getLoaders from './common-loaders';
+import getPlugins from './common-plugins';
+import getResolve from './common-resolve';
 
 export default {
     entry: ['./source/client'],
@@ -12,9 +14,6 @@ export default {
     module: {
         loaders: getLoaders(),
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './source/shell.html',
-        }),
-    ],
+    plugins: getPlugins(),
+    resolve: getResolve(),
 };

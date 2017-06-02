@@ -1,32 +1,19 @@
-import io from 'socket.io-client';
+import React from 'react';
+import { render } from 'react-dom';
 import { configureStore } from './core/store';
 import { hostname, port } from './config';
+import { socket } from './core/socket';
+import Root from './view/root';
 
 
+socket.on('send initialStore', (initialState) => {
+    const store = configureStore({
+        initialState,
+        socket,
+    });
 
-const socket = io(`http://${hostname}:${port}`);
-
-socket.on('send initialStore', initialStore => {
-    const store = configureStore(initialStore);
-    console.log(store.getState());
+    render(
+        <Root store={store} />,
+        document.getElementById('mount'),
+    );
 });
-socket.on('do pong', val => console.log(val));
-socket.on('connection', () => {
-    console.log('connected');
-    const store = configureStore;
-})
-
-
-const dispatch = action => {
-    socket.emit('dispatch action', action);
-};
-
-const button = document.getElementById('button');
-const onClickHandler = () => {
-    const action = {
-        type: 'INCREMENT_COUNT',
-    };
-    dispatch(action);
-};
-
-button.addEventListener('mousedown', onClickHandler);
