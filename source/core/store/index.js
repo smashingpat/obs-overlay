@@ -1,29 +1,7 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore,  applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
+import reducers from './reducers';
 
-
-const count = (state = 0, action) => {
-    if (action.type === 'INCREMENT_COUNT') {
-        return state + 1;
-    }
-    return state;
-};
-
-const loading = (state = 0, action) => {
-    switch (action.type) {
-    case 'LOADING_PENDING':
-        return state + 1;
-    case 'LOADING_DONE':
-        return state - 1;
-    default:
-        return state;
-    }
-}
-
-export const reducers = combineReducers({
-    count,
-    loading,
-});
 
 const loggerMiddleware = process.env.NODE_ENV === 'server' ?
     store => next => action => {

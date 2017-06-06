@@ -1,0 +1,10 @@
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:local .container {
+    height: 100vh;
+    width: 100vw;
+}

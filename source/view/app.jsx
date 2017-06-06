@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Routes } from './routes';
 
 
 class App extends Component {
@@ -15,17 +16,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>store:</h1>
-                <button onClick={this.onClickHandler}>increment</button>
-                <pre>{JSON.stringify(this.props, null, 2)}</pre>
+                <Routes />
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    count: state.count,
-    loading: state.loading,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
