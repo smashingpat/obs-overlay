@@ -1,7 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import stringLength from 'string-length';
-import chalk from 'chalk';
 
 
 const count = (state = 0, action) => {
@@ -31,10 +29,10 @@ const loggerMiddleware = process.env.NODE_ENV === 'server' ?
     store => next => action => {
         const nextState = next(action);
         const messages = [
-            `${chalk.bold('action:')} ${chalk.blue(JSON.stringify(action))}`,
-            `${chalk.bold('store:')} ${chalk.blue(JSON.stringify(store.getState()))}`,
+            `action: ${JSON.stringify(action)}`,
+            `store: ${JSON.stringify(store.getState())}`,
         ];
-        const longestMessage = Math.max(...messages.map(m => stringLength(m)));
+        const longestMessage = Math.max(...messages.map(m => m.length));
         const line = Array(longestMessage + 1).join('-');
 
         console.log(line);
