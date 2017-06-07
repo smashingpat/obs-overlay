@@ -1,10 +1,14 @@
+import 'babel-polyfill';
 import gulp from 'gulp';
-import { watchScripts } from './webpack';
-import { startServer } from './server';
+import { watchServer } from './webpack';
+import { startServer, startDevServer } from './server';
 import { cleanDir } from './clean';
+import { configureConfig } from './config';
 
 export const serve = gulp.series([
+    configureConfig,
     cleanDir,
-    watchScripts,
+    watchServer,
+    startDevServer,
     startServer,
 ]);
