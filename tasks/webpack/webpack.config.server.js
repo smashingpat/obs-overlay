@@ -18,4 +18,5 @@ export default {
     externals: [nodeExternals()],
     plugins: getPlugins(true),
     resolve: getResolve(true),
+    devtool: 'inline-source-maps',
 };

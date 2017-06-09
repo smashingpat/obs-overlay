@@ -2,7 +2,7 @@ import express from 'express';
 import { Server } from 'http';
 import bodyParser from 'body-parser';
 import socket from 'socket.io';
-import chalk from 'chalk';
+import logger from 'morgan';
 import { configureStore } from './core/store';
 import { hostname, port } from './config';
 
@@ -15,6 +15,12 @@ const store = configureStore();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('dist'));
+app.use(logger('dev'));
+app.use((req, res, next) => {
+    console.log(req.url);
+
+    next();
+});
 
 
 io.on('connection', socket => {
@@ -38,9 +44,9 @@ io.on('connection', socket => {
     });
 
     socket.emit('send initialStore', store.getState());
-})
+});
 
 
 server.listen(port, hostname, () => {
-    console.log(`Server started and listening at ${chalk.blue(`http://${hostname}:${port}`)}`);
+    console.log(`App is running at http://${app.get('hostname')}:${app.get('port')} in ${app.get('env')} mode`);
 });

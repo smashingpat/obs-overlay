@@ -6,7 +6,7 @@ export let config = {
     open: argv.open || false,
     port: argv.port || 1337,
     serverPort: argv.serverPort || 8080,
-    inspect: argv.inspect || 1337,
+    inspect: argv.inspect || false,
 }
 
 export const configureConfig = () => new Promise(async (resolve) => {
