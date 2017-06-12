@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('dist'));
 app.use(logger('dev'));
 app.use((req, res, next) => {
-    console.log(req.url);
-
     next();
 });
 
@@ -48,5 +46,5 @@ io.on('connection', socket => {
 
 
 server.listen(port, hostname, () => {
-    console.log(`App is running at http://${app.get('hostname')}:${app.get('port')} in ${app.get('env')} mode`);
+    console.log(`App is running at http://${hostname}:${port} in ${app.get('env')} mode`);
 });

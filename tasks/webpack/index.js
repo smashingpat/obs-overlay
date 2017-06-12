@@ -24,6 +24,17 @@ export const webpackCallback = callback => {
     }
 }
 
+export const createWebpackConfigWithHMR = config => Object.assign({}, config, {
+    entry: [
+        'webpack-hot-middleware/client?reload=true',
+        ...config.entry,
+    ],
+    plugins: [
+        ...config.plugins,
+        new webpack.HotModuleReplacementPlugin(),
+    ]
+});
+
 export const createBundler = config => webpack(config);
 export const createWatcher = (config, cb) => webpack(config).watch({}, webpackCallback(cb));
 
@@ -45,3 +56,7 @@ export const bundleScripts = () => new Promise(resolve => createBundler([
 // watchers
 export const watchClient = () => new Promise(resolve => createWatcher(webpackConfigClient, resolve));
 export const watchServer = () => new Promise(resolve => createWatcher(webpackConfigServer, resolve));
+
+// configs
+export { webpackConfigClient };
+export { webpackConfigServer };
